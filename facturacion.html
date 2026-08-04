@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solicitud de Factura</title>
+<style>
+  :root{
+    --verde:#25D366;
+    --verde-oscuro:#128C7E;
+    --gris-fondo:#f4f6f8;
+    --gris-texto:#2f3640;
+    --borde:#d9dde1;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Segoe UI', Arial, sans-serif;
+    background:var(--gris-fondo);
+    color:var(--gris-texto);
+    display:flex;
+    justify-content:center;
+    padding:24px;
+    min-height:100vh;
+  }
+  .card{
+    background:#fff;
+    max-width:480px;
+    width:100%;
+    border-radius:14px;
+    box-shadow:0 8px 24px rgba(0,0,0,0.08);
+    overflow:hidden;
+  }
+  .card__header{
+    background:var(--verde-oscuro);
+    color:#fff;
+    padding:24px 28px;
+    text-align:center;
+  }
+  .card__header h1{
+    font-size:1.35rem;
+    margin-bottom:6px;
+  }
+  .card__header p{
+    font-size:0.9rem;
+    opacity:0.9;
+  }
+  form{
+    padding:24px 28px 8px;
+  }
+  .campo{
+    margin-bottom:16px;
+  }
+  label{
+    display:block;
+    font-size:0.85rem;
+    font-weight:600;
+    margin-bottom:6px;
+    color:var(--gris-texto);
+  }
+  input, select{
+    width:100%;
+    padding:11px 12px;
+    border:1px solid var(--borde);
+    border-radius:8px;
+    font-size:0.95rem;
+    font-family:inherit;
+    outline:none;
+    transition:border-color .15s;
+  }
+  input:focus, select:focus{
+    border-color:var(--verde);
+  }
+  .hint{
+    font-size:0.75rem;
+    color:#8a94a3;
+    margin-top:4px;
+  }
+  button{
+    width:100%;
+    background:var(--verde);
+    color:#fff;
+    border:none;
+    padding:14px;
+    border-radius:8px;
+    font-size:1rem;
+    font-weight:600;
+    cursor:pointer;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    margin:16px 0 24px;
+    transition:background .15s;
+  }
+  button:hover{
+    background:var(--verde-oscuro);
+  }
+  .footer-note{
+    text-align:center;
+    font-size:0.75rem;
+    color:#8a94a3;
+    padding:0 28px 24px;
+  }
+  @media (max-width:400px){
+    .card__header{padding:20px;}
+    form{padding:20px 18px 4px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="card">
+  <div class="card__header">
+    <h1>Solicitud de Factura</h1>
+    <p>Completa tus datos fiscales y te enviaremos el formulario listo por WhatsApp</p>
+  </div>
+
+  <form id="facturaForm">
+    <div class="campo">
+      <label for="nombre">Nombre o Razón Social</label>
+      <input type="text" id="nombre" placeholder="Ej. Juan Pérez López / Empresa S.A. de C.V." required>
+    </div>
+
+    <div class="campo">
+      <label for="rfc">RFC</label>
+      <input type="text" id="rfc" placeholder="Ej. XAXX010101000" maxlength="13" required>
+    </div>
+
+    <div class="campo">
+      <label for="cp">Código Postal Fiscal</label>
+      <input type="text" id="cp" placeholder="Ej. 06600" maxlength="5" required>
+    </div>
+
+    <div class="campo">
+      <label for="correo">Correo Electrónico</label>
+      <input type="email" id="correo" placeholder="Ej. correo@ejemplo.com" required>
+    </div>
+
+    <div class="campo">
+      <label for="cfdi">Uso de CFDI</label>
+      <select id="cfdi" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="G01 Adquisición de mercancías">G01 - Adquisición de mercancías</option>
+        <option value="G03 Gastos en general">G03 - Gastos en general</option>
+        <option value="P01 Por definir">P01 - Por definir</option>
+        <option value="I08 Otra maquinaria y equipo">I08 - Otra maquinaria y equipo</option>
+        <option value="D01 Honorarios médicos y dentales">D01 - Honorarios médicos y dentales</option>
+        <option value="Otro">Otro (especificar por WhatsApp)</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="regimen">Régimen Fiscal</label>
+      <select id="regimen" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="601 - Régimen General de Ley Personas Morales">601 - Régimen General de Ley Personas Morales</option>
+        <option value="602 - Régimen Simplificado de Ley Personas Morales">602 - Régimen Simplificado de Ley Personas Morales</option>
+        <option value="603 - Personas Morales con Fines No Lucrativos">603 - Personas Morales con Fines No Lucrativos</option>
+        <option value="605 - Sueldos y Salarios e Ingresos Asimilados a Salarios">605 - Sueldos y Salarios e Ingresos Asimilados a Salarios</option>
+        <option value="606 - Arrendamiento">606 - Arrendamiento</option>
+        <option value="607 - Régimen de Enajenación o Adquisición de Bienes">607 - Régimen de Enajenación o Adquisición de Bienes</option>
+        <option value="608 - Demás Ingresos">608 - Demás Ingresos</option>
+        <option value="610 - Residentes en el Extranjero sin Establecimiento Permanente en México">610 - Residentes en el Extranjero sin Establecimiento Permanente en México</option>
+        <option value="611 - Ingresos por Dividendos (Socios y Accionistas)">611 - Ingresos por Dividendos (Socios y Accionistas)</option>
+        <option value="612 - Personas Físicas con Actividades Empresariales y Profesionales">612 - Personas Físicas con Actividades Empresariales y Profesionales</option>
+        <option value="614 - Ingresos por Intereses">614 - Ingresos por Intereses</option>
+        <option value="615 - Régimen de los Ingresos por Obtención de Premios">615 - Régimen de los Ingresos por Obtención de Premios</option>
+        <option value="616 - Sin Obligaciones Fiscales">616 - Sin Obligaciones Fiscales</option>
+        <option value="620 - Sociedades Cooperativas de Producción que Optan por Diferir sus Ingresos">620 - Sociedades Cooperativas de Producción que Optan por Diferir sus Ingresos</option>
+        <option value="621 - Régimen de Incorporación Fiscal">621 - Régimen de Incorporación Fiscal</option>
+        <option value="622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras">622 - Actividades Agrícolas, Ganaderas, Silvícolas y Pesqueras</option>
+        <option value="623 - Opcional para Grupos de Sociedades">623 - Opcional para Grupos de Sociedades</option>
+        <option value="624 - Coordinados">624 - Coordinados</option>
+        <option value="625 - Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas">625 - Actividades Empresariales con Ingresos a través de Plataformas Tecnológicas</option>
+        <option value="626 - Régimen Simplificado de Confianza (RESICO)">626 - Régimen Simplificado de Confianza (RESICO)</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="servicio">Servicio Recibido</label>
+      <select id="servicio" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="Consulta">Consulta</option>
+        <option value="Procedimiento endoscópico">Procedimiento endoscópico</option>
+        <option value="Otros">Otros (especificar)</option>
+      </select>
+      <input type="text" id="servicioOtro" placeholder="Especifica el servicio" style="display:none; margin-top:8px;">
+    </div>
+
+    <div class="campo">
+      <label for="metodoPago">Método de Pago</label>
+      <select id="metodoPago" required>
+        <option value="" disabled selected>Selecciona una opción</option>
+        <option value="Tarjeta de crédito">Tarjeta de crédito</option>
+        <option value="Tarjeta de débito">Tarjeta de débito</option>
+        <option value="Transferencia">Transferencia</option>
+        <option value="Efectivo">Efectivo</option>
+      </select>
+    </div>
+
+    <div class="campo">
+      <label for="monto">Monto</label>
+      <input type="number" id="monto" placeholder="Ej. 2000.00" min="0" step="0.01" required>
+    </div>
+
+    <button type="submit">
+      Enviar por WhatsApp
+    </button>
+  </form>
+
+  <p class="footer-note">Al enviar serás redirigido a WhatsApp con tus datos prellenados para confirmar el envío.</p>
+</div>
+
+<script>
+  const NUMERO_WHATSAPP = "5215580547761"; // +52 1 55 8054 7761 en formato internacional sin signos
+
+  const servicioSelect = document.getElementById('servicio');
+  const servicioOtro   = document.getElementById('servicioOtro');
+
+  servicioSelect.addEventListener('change', function(){
+    if (this.value === 'Otros') {
+      servicioOtro.style.display = 'block';
+      servicioOtro.required = true;
+    } else {
+      servicioOtro.style.display = 'none';
+      servicioOtro.required = false;
+      servicioOtro.value = '';
+    }
+  });
+
+  document.getElementById('facturaForm').addEventListener('submit', function(e){
+    e.preventDefault();
+
+    const nombre  = document.getElementById('nombre').value.trim();
+    const rfc     = document.getElementById('rfc').value.trim().toUpperCase();
+    const cp      = document.getElementById('cp').value.trim();
+    const correo  = document.getElementById('correo').value.trim();
+    const cfdi    = document.getElementById('cfdi').value;
+    const regimen = document.getElementById('regimen').value;
+    const metodoPago = document.getElementById('metodoPago').value;
+    const monto   = document.getElementById('monto').value.trim();
+
+    let servicio = servicioSelect.value;
+    if (servicio === 'Otros') {
+      servicio = servicioOtro.value.trim() || 'Otros';
+    }
+
+    const mensaje =
+`Hola, quisiera solicitar mi factura con los siguientes datos:
+
+*Nombre o Razón Social:* ${nombre}
+*RFC:* ${rfc}
+*Código Postal Fiscal:* ${cp}
+*Correo Electrónico:* ${correo}
+*Uso de CFDI:* ${cfdi}
+*Régimen Fiscal:* ${regimen}
+*Servicio Recibido:* ${servicio}
+*Método de Pago:* ${metodoPago}
+*Monto:* $${monto}`;
+
+    const url = `https://wa.me/${NUMERO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+    window.open(url, '_blank');
+  });
+</script>
+
+</body>
+</html>
